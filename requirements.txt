@@ -3,6 +3,7 @@ langchain
 langchain-community
 huggingface_hub
 Chroma
+chromadb
 python-dotenv
 beautifulsoup4
 
