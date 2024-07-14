@@ -86,8 +86,21 @@ class Rag_Model():
 
 
 rag= Rag_Model()
+with st.sidebar:
+    st.title("Smart Business Asistant for your Company")
+    st.subheader("About")
+    st.write("This sophisticated ATS project, developed with langchain,HuggingFace,chromadb and Streamlit, seamlessly incorporates advanced features including Q/A.")
+        
+    st.markdown("""
+    - [Streamlit](https://streamlit.io/)
+    - [Github](https://github.com/sathish-1023/mind_own_chatbot) Repository 
+    -[ATS CHecker](https://ats-resume-checker-4fj7.onrender.com/) Link
+    -[Contact](https://sathish-1023.github.io/my_react_portfolio) Portfolio
+        """)
+        
+    st.write("developed by sathish ( incredible developer ).")
 with st.popover("Lanuch"):
-        n= st.number_input("enter no.of url and press enter ",value=1, placeholder = "Type a number...")
+    n= st.number_input("enter no.of url and press enter ",value=1, placeholder = "Type a number...")
     if n<0:
         n=1
     elif n>5:
