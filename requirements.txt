@@ -4,4 +4,5 @@ langchain-community
 huggingface_hub
 Chroma
 python-dotenv
+beautifulsoup4
 
