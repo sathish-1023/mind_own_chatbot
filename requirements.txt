@@ -6,4 +6,5 @@ Chroma
 chromadb
 python-dotenv
 beautifulsoup4
+pysqlite3-binary
 
