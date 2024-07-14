@@ -87,17 +87,19 @@ class Rag_Model():
 
 rag= Rag_Model()
 with st.popover("Lanuch"):
-    n= st.number_input("enter no.of url and press enter ",value=0, placeholder = "Type a number...")
+        n= st.number_input("enter no.of url and press enter ",value=1, placeholder = "Type a number...")
     if n<0:
-        n=0 
+        n=1
     elif n>5:
         n=5
 
-    urls=[0]*n
+    urls=[]
+    st.write('upload atleast one url')
     for i in range(n):
-        urls[i]=st.text_input(f"Enter url {i+1} : ")
+        urls.append(st.text_input(f"Enter url {i+1} : "))
     if st.button("Load data", type="secondary"):
         rag.create_vector_db(urls)
+   
                 
 
 st.title("RAG ChatBot With Streamlit and LANGCHAIN")
