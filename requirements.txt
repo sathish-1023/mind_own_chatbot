@@ -1,4 +1,4 @@
 streamlit 
-langchain 
+langchain[all] 
 Chroma
 dotenv
