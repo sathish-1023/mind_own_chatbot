@@ -1,5 +1,5 @@
 Sure! Here is a `README.md` file for your RAG application:
-
+WEBSITE_URL = https://mind-own-chatbot.onrender.com/
 ```markdown
 # RAG Application
 
