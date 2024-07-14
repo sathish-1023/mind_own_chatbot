@@ -2,7 +2,7 @@ streamlit
 langchain
 langchain-community
 huggingface_hub
-chromadb==0.3.29
+chromadb
 python-dotenv
 beautifulsoup4
 pysqlite3-binary
