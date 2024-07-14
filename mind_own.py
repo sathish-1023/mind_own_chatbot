@@ -96,7 +96,8 @@ with st.popover("Lanuch"):
         rag.create_vector_db(urls)
                 
 
-st.title("ChatGPT ChatBot With Streamlit and OpenAI")
+st.title("RAG ChatBot With Streamlit and LANGCHAIN")
+st.write('first upload your web urls in in launch popover')
 if 'user_input' not in st.session_state:
     st.session_state['user_input'] = []
         
