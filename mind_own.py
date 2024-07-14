@@ -30,7 +30,7 @@ class Rag_Model():
             content = data.load()
         # print(content)
 
-        # text spliting and chunking  
+         # text spliting and chunking  
         with st.spinner("Text Spliting and chunking : ..."):
             text_spliter= RecursiveCharacterTextSplitter(
             #separators=['\n\n','\n','.',','],
@@ -38,12 +38,12 @@ class Rag_Model():
             chunk_overlap = 50
             )
             chunks = text_spliter.split_documents(content)
-            # print(chunks)
+                # print(chunks)
 
         with st.spinner("Vectors creating using embedding ..."):
             hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
             self.embeddings = HuggingFaceInferenceAPIEmbeddings(api_key=hf_token ,
-                                            model_name="BAAI/bge-base-en-v1.5")
+                                                model_name="BAAI/bge-base-en-v1.5")
         with st.spinner("creating vector database and uploading data into db folder ..."):
             vectorstore = Chroma.from_documents(chunks,self.embeddings,persist_directory='db')
 
@@ -58,9 +58,9 @@ class Rag_Model():
             </s>
             <|assistant|>
             return only Helpfull Answer
-        """
+            """
         return prompt
-    
+        
     def compute(self):
         with st.spinner("Vectors creating using embedding ..."):
             hf_token = os.getenv("HUGGINGFACEHUB_API_TOKEN")
@@ -74,50 +74,50 @@ class Rag_Model():
             # query = "what is system_design ?"
             # docs_rel = retriever.get_relevant_documents(query)
             # print(docs_rel)
-        self.qa = RetrievalQA.from_chain_type(llm= self.model,retriever = retriever,chain_type = 'stuff')
-        
+            self.qa = RetrievalQA.from_chain_type(llm= self.model,retriever = retriever,chain_type = 'stuff')
+            
     def retrive_ans(self,query):
         response = self.qa(self.prompting(query))
         return response['result']
-def main():
-    rag= Rag_Model()
-    with st.popover("Lanuch"):
-        n= st.number_input("enter no.of url and press enter ",value=0, placeholder = "Type a number...")
-        if n<0:
-            n=0 
-        elif n>5:
-            n=5
 
-        urls=[0]*n
-        for i in range(n):
-            urls[i]=st.text_input(f"Enter url {i+1} : ")
-        if st.button("Load data", type="secondary"):
-            rag.create_vector_db(urls)
+
+rag= Rag_Model()
+with st.popover("Lanuch"):
+    n= st.number_input("enter no.of url and press enter ",value=0, placeholder = "Type a number...")
+    if n<0:
+        n=0 
+    elif n>5:
+        n=5
+
+    urls=[0]*n
+    for i in range(n):
+        urls[i]=st.text_input(f"Enter url {i+1} : ")
+    if st.button("Load data", type="secondary"):
+        rag.create_vector_db(urls)
+                
+
+st.title("ChatGPT ChatBot With Streamlit and OpenAI")
+if 'user_input' not in st.session_state:
+    st.session_state['user_input'] = []
+        
+if 'openai_response' not in st.session_state:
+    st.session_state['openai_response'] = []
+        
+def get_text():
+    input_text = st.text_input("write here", key="input")
+    return input_text
+        
+user_input = get_text()
+        
+if user_input:
+    rag.compute()
+    output = rag.retrive_ans(user_input)
+    #output = output.lstrip("\n")
             
-
-    st.title("ChatGPT ChatBot With Streamlit and OpenAI")
-    if 'user_input' not in st.session_state:
-        st.session_state['user_input'] = []
-    
-    if 'openai_response' not in st.session_state:
-        st.session_state['openai_response'] = []
-    
-    def get_text():
-        input_text = st.text_input("write here", key="input")
-        return input_text
-    
-    user_input = get_text()
-    
-    if user_input:
-        rag.compute()
-        output = rag.retrive_ans(user_input)
-        #output = output.lstrip("\n")
-        
-        st.write(output)
+    st.write(output)
         # Store the output
-        st.session_state.openai_response.append(user_input)
-        st.session_state.user_input.append(output)
+    st.session_state.openai_response.append(user_input)
+    st.session_state.user_input.append(output)
 
-if __name__ == "main":
-    main()      
-        
+
+            
